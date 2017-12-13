@@ -1,6 +1,8 @@
 import React from 'react';
+import { observer } from 'mobx-react'
 import LoginForm from './LoginForm';
 import Background from '../guybg.png';
+import Navbar from './Navbar';
 
 
 const bg = {
@@ -26,7 +28,7 @@ class LoginPage extends React.Component {
             <div className="container-fluid" style={bg}>
                 <div className="row">
                     <div className="col-xs-9 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                        <LoginForm/>
+                        <LoginForm onLoginSuccess={() => this.props.history.push('/main')}/>
                     </div>
                 </div>
             </div>
@@ -34,4 +36,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage;
+export default observer(LoginPage);

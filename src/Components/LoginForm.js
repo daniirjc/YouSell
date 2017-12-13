@@ -1,5 +1,8 @@
 import React from 'react';
+import { observer } from 'mobx-react'
+import { withRouter } from 'react-router';
 import { postLoginDetails, fetchToken } from '../api/login';
+import store from '../stores';
 
 const bg = {
     backgroundColor: "rgba(0,0,0, 0.5)",
@@ -22,60 +25,34 @@ const head = {
 };
 
 class LoginForm extends React.Component {
+
     constructor() {
         super();
         this.state = {
             username: '',
             password: '',
-            loading: false,
             token: '',
             error: false,
         };
-        this.handleUserInput = this.handleUserInput.bind(this);
-        this.handlePasswordInput = this.handlePasswordInput.bind(this);
-        this.onLogin = this.onLogin.bind(this);
     }
 
-    handleUserInput(event) {
-        this.setState({username: event.target.value});
+    handlePasswordInput = (event) => {
+        this.setState({ password: event.target.value });
     }
 
-
-    handlePasswordInput(event) {
-        this.setState({password: event.target.value});
-
+    handleUserInput = (event) => {
+        this.setState({ username: event.target.value });
     }
 
-    componentWillMount() {
-        this.fetchTokenOnStart();
-    }
-
-    onLogin(e) {
+    onLogin = (e) => {
         e.preventDefault();
-        this.setState({loading: true})
-        postLoginDetails(this.state.username, this.state.password, () => { this.setState({ loading: false }) })
+        store.userStore.login(this.state.username, this.state.password, this.props.onLoginSuccess);
     }
-
-    fetchTokenOnStart = async  () => {
-        this.setState({ error: false })
-        try {
-            const res = await fetchToken();
-            const data = await res.json();
-            if (data) {
-                console.log("token", data);
-                this.setState({ token: data._csrf })
-            }
-        } catch(e) {
-            console.log(e)
-            this.setState({ error: true })
-        }
-
-    };
 
 
     render () {
         return (
-            this.state.loading ? <h1>LOADING</h1> :
+            store.userStore.loginLoading.get() ? <h1>LOADING</h1> :
                 (
                     <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin}>
                         <input name="_csrf" value={this.state.token} type="hidden" readOnly={true} />
@@ -104,4 +81,4 @@ class LoginForm extends React.Component {
     }
 }
 
-export default LoginForm;
+export default observer(LoginForm);
