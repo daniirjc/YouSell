@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 
 
 
+
 axiosDefault.xsrfHeaderName = "X-CSRFToken";
 
 
@@ -29,6 +30,8 @@ export function postLoginDetails(username, password, token) {
 
 export function fetchToken() {
     const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
+    console.log("im fetching")
+    console.log(url)
     return fetch(url)
 }
 

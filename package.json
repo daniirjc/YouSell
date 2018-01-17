@@ -8,7 +8,9 @@
     "mobx": "^3.4.1",
     "mobx-react": "^4.3.5",
     "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "react-bootstrap": "^0.32.0",
+    "react-dom": "^16.1.1",
+    "react-modal": "^3.1.11"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

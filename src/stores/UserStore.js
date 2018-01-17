@@ -13,7 +13,9 @@ class UserStore {
     login = action((username, password, cb) => {
         this.name = observable(username);
         this.loginLoading.set(true);
+        console.log("Hereee")
         fetchToken().then((res) => res.json()).then((data => {
+            console.log("heree")
             if(data) {
                 console.log('Data received');
                 this.token = data._csrf;

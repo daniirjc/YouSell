@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react'
 import { withRouter } from 'react-router';
-import { postLoginDetails, fetchToken } from '../api/login';
 import store from '../stores';
 
 const bg = {
@@ -21,7 +20,7 @@ const head = {
     fontSize: 45,
     fontFamily: "Helvetica",
     color: "white",
-    marginBottom: 30
+    marginBottom: 30,
 };
 
 class LoginForm extends React.Component {
@@ -54,7 +53,7 @@ class LoginForm extends React.Component {
         return (
             store.userStore.loginLoading.get() ? <h1>LOADING</h1> :
                 (
-                    <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin}>
+                    <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin} style={{textAlign: 'center'}}>
                         <input name="_csrf" value={this.state.token} type="hidden" readOnly={true} />
                         <label style={head}>
                             LOGIN
