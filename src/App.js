@@ -27,13 +27,10 @@ class App extends Component {
             <div className="center">
                 <BrowserRouter initialRoute={store.userStore.isAuthenticated ? '/main' : ''} history={history}>
                     <div>
-                        {
-                            store.userStore.isAuthenticated.get() && <div><Navbar/></div>
-                        }
+
                         <div>
                             <Route exact path='/' component={LoginPage}/>
                             <Route path='/main' onEnter={requireAuth} component={Front}/>
-                            <Route path='/menudetail' onEnter={requireAuth} component={Menudetail}/>
                         </div>
                     </div>
 

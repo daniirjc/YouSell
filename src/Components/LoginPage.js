@@ -2,7 +2,6 @@ import React from 'react';
 import { observer } from 'mobx-react'
 import LoginForm from './LoginForm';
 import Background from '../guybg.png';
-import {reqItem} from "../api/main";
 
 
 const bg = {
@@ -28,7 +27,7 @@ class LoginPage extends React.Component {
             <div className="container-fluid" style={bg}>
                 <div className="row">
                     <div className="col-xs-9 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
-                        <LoginForm onLoginSuccess={() => this.props.history.push('/main').then(reqItem(2))}/>
+                        <LoginForm onLoginSuccess={() => this.props.history.push('/main')}/>
                     </div>
                 </div>
             </div>

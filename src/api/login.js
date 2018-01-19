@@ -11,7 +11,8 @@ axiosDefault.xsrfHeaderName = "X-CSRFToken";
 
 
 export function postLoginDetails(username, password, token) {
-    const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
+    //const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
+    const url = 'http://yousell.localtunnel.me/login'
 
     return axios({
         method: 'post',
@@ -29,7 +30,8 @@ export function postLoginDetails(username, password, token) {
 }
 
 export function fetchToken() {
-    const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
+    //const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
+    const url = 'http://yousell.localtunnel.me/login'
     console.log("im fetching")
     console.log(url)
     return fetch(url)

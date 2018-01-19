@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {reqItem, fetchItems} from "../api/main";
-import Modal from 'react-modal'
-
+import Modal from 'react-modal';
+import {observer} from 'mobx-react'
+import store from '../stores'
+import ModalComponent from "./ModalComponent";
 
 const styles = {
     productview: {
@@ -33,14 +35,16 @@ const styles = {
         fontSize: 20,
         color: "rgba(95,183,96,1)",
 
+    },
+    content: {
+        textAlign: 'center'
     }
-
 
 
 };
 
 
-class Item extends React.Component {
+class Item extends Component {
 
     constructor() {
         super();
@@ -48,44 +52,55 @@ class Item extends React.Component {
         this.state = {
             items: [],
             modalisOpen: false,
+            activeItemId: null,
+            currItem: [],
         }
     }
 
-    openModal = () => {
-        this.setState({modalisOpen: true})
+    openModal = (id) => {
+        console.log('Inside openModal()', id)
+        this.setState({modalisOpen: true, activeItemId: id, currItem: store.itemStore.items.find(x => x._id === id)})
+        console.log(this.state.currItem.art_name)
+
+        console.log(this.state.activeItemId)
     }
 
     closeModal = () => {
         this.setState({modalisOpen: false})
     }
 
-    componentDidMount() {
-        fetchItems().then((res) => res.json()).then((data => this.setState({items: data})));
+    componentWillMount() {
+        store.itemStore.reqItem(2);
     }
-
-
-
 
     render() {
         const {items} = this.state;
-        const { history } = this.props;
+        const {history} = this.props;
+
+
         return (
             <div className="container">
+
+                <Modal className="custommodal"
+                       isOpen={this.state.modalisOpen}
+                       onRequestClose={this.closeModal}
+                       contentLabel="GG"
+                       ariaHideApp={false}
+                >
+                    {console.log(this.state.currItem)}
+                    <h3>{this.state.currItem.art_name}</h3>
+                    <button className="btn btn-success" onClick={this.closeModal}>Close</button>
+                </Modal>
+
                 <div className="row" style={styles.productview}>
 
                     {
-                        items.map(function (menuItem) {
+                        store.itemStore.items.map(function (menuItem) {
                             return (
-                                <div onClick={() => { this.openModal()}} className="col-xs-12 col-sm-6 col-md-3" style={styles.space}>
-                                    <Modal
-                                        isOpen={this.state.modalisOpen}
-                                        onRequestClose={this.closeModal}
-                                        contentLabel="GG"
-
-                                    >
-
-                                        <button className="btn btn-success" onClick={this.closeModal}>Close</button>
-                                    </Modal>
+                                <div onClick={() => {
+                                    console.log('Right before openModal()', menuItem._id)
+                                    this.openModal(menuItem._id)
+                                }} className="col-xs-12 col-sm-6 col-md-3" style={styles.space}>
                                     <div className="thumbnail" style={styles.thumb}>
                                         <img src={menuItem.img[0]} alt=""/>
                                         <div className="caption">
@@ -96,7 +111,7 @@ class Item extends React.Component {
                                     </div>
                                 </div>
                             );
-                        })
+                        }, this)
                     }
 
                 </div>
@@ -105,4 +120,5 @@ class Item extends React.Component {
     }
 }
 
-export default Item;
+
+export default observer(Item);

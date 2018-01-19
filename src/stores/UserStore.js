@@ -19,10 +19,11 @@ class UserStore {
             if(data) {
                 console.log('Data received');
                 this.token = data._csrf;
+                console.log(this.token);
                 this.error.set(false);
                 this.errorText = observable('');
                 postLoginDetails(username, password, this.token).then((res) => {
-                    console.log(res)
+                    console.log("reees:" + res)
                     if (res.data.success) {
                         this.isAuthenticated.set(true)
                         console.log('Logged in')
@@ -45,6 +46,8 @@ class UserStore {
     createProduct = action(() => {
         console.log('Product created')
     })
+
+
 
 
 
