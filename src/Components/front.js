@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Item from './Item';
-import Navbar from "./Navbar";
+import NavbarComponent from "./Navbar";
 
 
 const styles = {
@@ -17,7 +17,7 @@ class Front extends React.Component {
         return(
             <div>
                 <div style={styles.bg}>
-                    <Navbar/>
+                    <NavbarComponent/>
                     <Item history={this.props.history} />
                 </div>
             </div>

@@ -7,8 +7,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {Route} from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import store from './stores';
-import Menudetail from './Components/Menudetail';
-import Navbar from './Components/Navbar';
+
 
 
 const history = createHistory()

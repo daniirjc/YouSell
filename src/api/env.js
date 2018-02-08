@@ -1,6 +1,6 @@
 const ENV = {
-    host: "yousell.localtunnel.me",
-    port: 8080
+    host: "https://vast-basin-95827.herokuapp.com",
+    //port: 8080
 }
 
 export default ENV;

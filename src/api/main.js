@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom';
 
 export function fetchItems() {
     //const url = 'http://' + ENV.host + ':' + ENV.port + '/main';
-    const url = 'http://yousell.localtunnel.me/main'
+    const url = ENV.host + '/main'
 
     return fetch(url);
 }

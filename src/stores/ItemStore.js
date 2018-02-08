@@ -1,5 +1,6 @@
 import {observable, action} from 'mobx'
 import axios from 'axios';
+import ENV from '../api/env';
 
 
 
@@ -8,7 +9,7 @@ class ItemStore {
 
     reqItem = action((seitenanzahl) => {
         //const url = 'http://' + ENV.host + ':' + ENV.port + '/main';
-        const url = 'http://yousell.localtunnel.me/main'
+        const url = ENV.host + '/main'
 
         return axios.post(url, {
             data: {
