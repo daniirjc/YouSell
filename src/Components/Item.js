@@ -5,6 +5,12 @@ import {observer} from 'mobx-react'
 import store from '../stores'
 import CarouselComponent from "./CarouselComponent";
 import MsgComponent from "./MsgComponent";
+import RatingComponent from "./RatingComponent";
+import PaginationComponent from "./PaginationComponent";
+import { ClipLoader } from 'react-spinners';
+import { socketConnect } from 'socket.io-react';
+
+
 
 const styles = {
     productview: {
@@ -33,14 +39,14 @@ const styles = {
         font: 'arial',
     },
     price: {
-        fontSize: 20,
+        fontSize: 15,
         color: "rgba(95,183,96,1)",
         position: 'absolute',
         bottom: 0,
         left: 5,
     },
     title: {
-        fontSize: 20,
+        fontSize: 17,
         color: "rgba(95,183,96,1)",
 
     },
@@ -80,7 +86,8 @@ class Item extends Component {
     }
 
     componentWillMount() {
-        store.itemStore.reqItem(2);
+        store.itemStore.reqItem(0);
+        store.socketStore.socket.emit('ack', store.userStore.name)
     }
 
 
@@ -92,7 +99,7 @@ class Item extends Component {
 
 
         return (
-            <div className="container">
+            <div className="container" style={{textAlign: "center"}}>
                 <Modal className="custommodal"
                        isOpen={this.state.modalisOpen}
                        onRequestClose={this.closeModal}
@@ -106,9 +113,8 @@ class Item extends Component {
                     <div style={{flex: 2}}>
                         <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
                         <p>{this.state.currItem.art_desc}</p>
-                        <p style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price}</span></p>
+                        <p style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} {store.userStore.name.get()} <RatingComponent/></span> </p>
                         <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
-                        {/*TODO: auslagern*/}
                     </div>
                     <button style={{fontSize: 15,top: 0, right: -7, position: "absolute", border: "none" }} className="glyphicon glyphicon-remove-sign" onClick={this.closeModal}/>
                 </Modal>
@@ -116,16 +122,17 @@ class Item extends Component {
                 <div className="row" style={styles.productview}>
                     {
                         store.itemStore.items.map(function (menuItem) {
+                            const desc = `${menuItem.art_desc.substring(0,50)}...`
                             return (
                                 <div onClick={() => {
                                     console.log('Right before openModal()', menuItem._id)
                                     this.openModal(menuItem._id)
                                 }} className="col-xs-6 col-sm-6 col-md-3" style={styles.space}>
                                     <div className="thumbnail" style={styles.thumb}>
-                                        <img src={menuItem.img[0]} alt=""/>
+                                        <img style={{height: 200, width: "100%"}} src={menuItem.img[0]} alt=""/>
                                         <div className="caption" style={{alignItems: 'flex-start'}}>
                                             <h4 style={styles.title}>{menuItem.art_name}</h4>
-                                            <p style={styles.textdes}>{menuItem.art_desc}</p>
+                                            <p style={styles.textdes}>{desc}</p>
                                             <h5 style={styles.price}>Preis: € {menuItem.art_price}</h5>
                                         </div>
                                     </div>
@@ -134,6 +141,7 @@ class Item extends Component {
                         }, this)
                     }
                 </div>
+                {store.itemStore.items.length === 0 ? <ClipLoader color="#26A65B" size={50}/> : <PaginationComponent/>}
             </div>
         );
     }

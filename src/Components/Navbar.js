@@ -1,7 +1,4 @@
 import React from 'react';
-import ENV from '../api/env';
-import axios from 'axios';
-import Background from '../msg.png';
 import './cstm.css'
 import DropDownComponent from "./DropDownComponent";
 import CreateProductComponent from "./CreateProductComponent";
@@ -19,16 +16,6 @@ const styles = {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-around"
-    },
-    closeimage: {
-        backgroundImage: `url(${Background})`,
-        display: "inline-block",
-        height: 30,
-        width: 30,
-        border: "none",
-        marginRight: 10,
-        marginTop: 17,
-        marginLeft: 15,
     },
     pb: {
         borderRadius: "40%",

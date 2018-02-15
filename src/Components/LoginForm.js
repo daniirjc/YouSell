@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react'
 import { withRouter } from 'react-router';
 import store from '../stores';
+import { ClipLoader } from 'react-spinners';
 
 const bg = {
     backgroundColor: "rgba(0,0,0, 0.5)",
@@ -51,7 +52,7 @@ class LoginForm extends React.Component {
 
     render () {
         return (
-            store.userStore.loginLoading.get() ? <h1>LOADING</h1> :
+            store.userStore.loginLoading.get() ? <ClipLoader loading={true} color="#26A65B" size={50} /> :
                 (
                     <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin} style={{textAlign: 'center'}}>
                         <input name="_csrf" value={this.state.token} type="hidden" readOnly={true} />
@@ -69,7 +70,7 @@ class LoginForm extends React.Component {
                         </div>
 
                         <div style={{marginTop:10, width: "100%"}} className="input-group">
-                            <button type="submit" className="btn btn-success btn-block">LOGIN</button>
+                            <button style={{borderRadius: 0}} type="submit" className="btn btn-success btn-block">LOGIN</button>
                         </div>
                     </form>
                 )

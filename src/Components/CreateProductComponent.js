@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import Dropzone from 'react-dropzone'
+import ENV from "../api/env";
+import * as axios from "axios";
+import store from '../stores'
+
 
 const styles = {
     uploader: {
@@ -7,7 +11,7 @@ const styles = {
         height: "70px",
         border: "solid",
         borderWidth: 1,
-        marginBottom: 15,
+        marginBottom: 10,
         textAlign: 'center',
         backgroundColor: "#eee"
     },
@@ -75,7 +79,30 @@ class CreateProductComponent extends Component {
         this.setState({cat: event.target.value} )
     }
 
+    onCreate = () => {
+        const url = ENV.host + ':' + ENV.port + '/main/add';
+        const data = new FormData();
+        data.append('user', store.userStore.name);
+        data.append('images', this.state.images);
+        data.append('name', this.state.name);
+        data.append('desc', this.state.desc);
+        data.append('category', this.state.cat);
+        data.append('price', this.state.price);
+
+
+        return axios({
+            method: 'post',
+            url: url,
+            withCredentials: true,
+            data: {
+                data: data
+            },
+            responseType: 'json'
+        })
+    }
+
     render() {
+        console.log(this.state.images)
         return (
             <div style={{width: "100%"}}>
                 <Dropzone style={styles.uploader} accept="image/jpeg, image/png" onDrop={(accepted) => {this.attachToArray(accepted)}}>
@@ -87,20 +114,20 @@ class CreateProductComponent extends Component {
                         return <li key={it.name}>{it.name}-{it.size} bytes</li>
                     })}
                 </ul>
-                <form style={{width: "40%"}}>
+                <form style={{width: "40%"}} onSubmit={this.onCreate}>
                     <div style={{flex: 1}}>
-                        <input style={{marginBottom: 10,  borderRadius: 0}} value={this.state.name} type="text" className="form-control" placeholder="Artikel Name" onChange={this.handleName}/>
-                        <textarea style={{marginBottom: 10, borderRadius: 0}} rows="4" cols="50" value={this.state.desc} className="form-control" placeholder="Artikel Beschreibung" onChange={this.handleDesc}/>
-                        <select style={styles.sel} value={this.state.cat} onChange={this.handleCat}>
+                        <input style={{marginBottom: 10,  borderRadius: 0}} value={this.state.name} type="text" className="form-control" placeholder="Artikel Name" onChange={this.handleName} required={true}/>
+                        <textarea style={{marginBottom: 10, borderRadius: 0}} maxLength={400} rows="4" cols="50" value={this.state.desc} className="form-control" placeholder="Artikel Beschreibung" onChange={this.handleDesc} required={true}/>
+                        <select style={styles.sel} value={this.state.cat} onChange={this.handleCat} required={true}>
                             <option>Bücher</option>
                             <option>Nachhilfe</option>
                             <option>Sonstiges</option>
                         </select>
-                        <input style={{marginBottom: 10, borderRadius: 0}} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice}/>
+                        <input style={{marginBottom: 10, borderRadius: 0}} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice} required={true}/>
                     </div>
+                    <button type="submit" className="btn btn-success btn-block" style={{borderRadius: 0, height: 30}}>Produkt erstellen</button>
                 </form>
             </div>
-
         );
     }
 }

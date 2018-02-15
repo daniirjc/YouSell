@@ -8,13 +8,12 @@ class ItemStore {
     items = observable([]);
 
     reqItem = action((seitenanzahl) => {
-        //const url = 'http://' + ENV.host + ':' + ENV.port + '/main';
-        const url = ENV.host + '/main'
+        const url = ENV.host + ':' + ENV.port + '/main'
+        //const url = ENV.host + "/main"
 
         return axios.post(url, {
             data: {
                 n: seitenanzahl - 1,
-
             },
             responseType: 'json',
         }).then((res => {

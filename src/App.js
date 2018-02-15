@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { SocketProvider } from 'socket.io-react';
 import {observer} from 'mobx-react'
 import LoginPage from './Components/LoginPage';
 import "./App.css";
@@ -23,18 +24,19 @@ class App extends Component {
 
     render() {
         return (
-            <div className="center">
-                <BrowserRouter initialRoute={store.userStore.isAuthenticated ? '/main' : ''} history={history}>
-                    <div>
-
+            <SocketProvider socket={store.socketStore.socket}>
+                <div className="center">
+                    <BrowserRouter initialRoute={store.userStore.isAuthenticated ? '/main' : ''} history={history}>
                         <div>
-                            <Route exact path='/' component={LoginPage}/>
-                            <Route path='/main' onEnter={requireAuth} component={Front}/>
-                        </div>
-                    </div>
 
-                </BrowserRouter>
-            </div>
+                            <div>
+                                <Route exact path='/' component={LoginPage}/>
+                                <Route path='/main' onEnter={requireAuth} component={Front}/>
+                            </div>
+                        </div>
+                    </BrowserRouter>
+                </div>
+            </SocketProvider>
         );
     }
 }

@@ -11,8 +11,8 @@ axiosDefault.xsrfHeaderName = "X-CSRFToken";
 
 
 export function postLoginDetails(username, password, token) {
-    //const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
-    const url = ENV.host + 'login';
+    const url = ENV.host + ':'+ ENV.port + '/login';
+    //const url = ENV.host + "/login";
 
     return axios({
         method: 'post',
@@ -30,8 +30,8 @@ export function postLoginDetails(username, password, token) {
 }
 
 export function fetchToken() {
-    //const url = 'http://' + ENV.host + ':' + ENV.port + '/login';
-    const url = 'https://vast-basin-95827.herokuapp.com'
+    const url = ENV.host + ':' + ENV.port + '/login';
+    //const url = 'https://vast-basin-95827.herokuapp.com'
     console.log("im fetching")
     console.log(url)
     return fetch(url)

@@ -13,9 +13,7 @@ class UserStore {
     login = action((username, password, cb) => {
         this.name = observable(username);
         this.loginLoading.set(true);
-        console.log("Hereee")
         fetchToken().then((res) => res.json()).then((data => {
-            console.log("heree")
             if(data) {
                 console.log('Data received');
                 this.token = data._csrf;
@@ -23,10 +21,10 @@ class UserStore {
                 this.error.set(false);
                 this.errorText = observable('');
                 postLoginDetails(username, password, this.token).then((res) => {
-                    console.log("reees:" + res)
                     if (res.data.success) {
                         this.isAuthenticated.set(true)
                         console.log('Logged in')
+                        console.log(res.data.amount)
                         cb();
                     } else {
                         this.error.set(true);
@@ -46,11 +44,6 @@ class UserStore {
     createProduct = action(() => {
         console.log('Product created')
     })
-
-
-
-
-
 }
 
 export default UserStore
