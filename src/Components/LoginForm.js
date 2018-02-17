@@ -1,6 +1,5 @@
 import React from 'react';
 import { observer } from 'mobx-react'
-import { withRouter } from 'react-router';
 import store from '../stores';
 import { ClipLoader } from 'react-spinners';
 
