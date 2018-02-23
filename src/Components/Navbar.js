@@ -3,6 +3,10 @@ import './cstm.css'
 import DropDownComponent from "./DropDownComponent";
 import CreateProductComponent from "./CreateProductComponent";
 import Modal from 'react-modal';
+import ENV from "../api/env";
+import * as axios from "axios";
+import store from '../stores'
+
 
 
 
@@ -87,6 +91,8 @@ class NavbarComponent extends React.Component {
 
         this.state = {
             modalisOpen: false,
+            search: '',
+            cat: ''
         }
     }
 
@@ -96,6 +102,44 @@ class NavbarComponent extends React.Component {
 
     closeModal = () => {
         this.setState({modalisOpen: false})
+    }
+
+    handleSearchInput = (event) => {
+        this.setState({search: event.target.value})
+        console.log(this.state.search)
+    }
+    handleCatInput = (event) => {
+        this.setState({cat: event.target.value})
+        console.log(this.state.cat)
+    }
+
+    onSearch = () => {
+        const url = ENV.host + ':' + ENV.port + '/search';
+        // const url = ENV.host + '/search';
+
+        console.log(cat);
+        let cat = this.state.cat === 'Kategorien' ? null : this.state.cat
+
+
+        return axios({
+            method: 'post',
+            url: url,
+            withCredentials: true,
+            data: {
+                q: this.state.search,
+                category: cat
+            },
+            responseType: 'json'
+        }).then(res =>{
+            if(res.data.items.length === 0) {
+                alert("Keine Ergebnisse für diesen Suchbegriff")
+            } else {
+                store.itemStore.gg(res.data.items)
+
+                console.log("Finally: ", res);
+            }
+        })
+
     }
 
     render() {
@@ -120,16 +164,16 @@ class NavbarComponent extends React.Component {
                     <div style={styles.centnav} className="input-group">
 
 
-                        <input style={styles.searchPro} type="text" name="search" placeholder="Ich suche nach ... " className="input-group-addon"/>
+                        <input style={styles.searchPro} onChange={this.handleSearchInput} value={this.state.search} type="text" name="search" placeholder="Ich suche nach ... " className="input-group-addon"/>
 
-                        <select style={styles.searchKat}>
-                            <option>Kategorien</option>
+                        <select style={styles.searchKat} onChange={this.handleCatInput} value={this.state.cat}>
+                            <option value="" selected disabled hidden>Choose</option>
                             <option>Nachhilfe</option>
                             <option>Bücher</option>
                             <option>Sonstiges</option>
                         </select>
 
-                            <button className="input-group-addon" style={{borderWidth: 0.5, backgroundColor: "white"}}>
+                            <button className="input-group-addon" style={{borderWidth: 0.5, backgroundColor: "white"}} onClick={this.onSearch}>
                                 <span className="glyphicon glyphicon-search" style={{verticalAlign: "middle", right: 6, top: 0}}/>
                             </button>
                     </div>

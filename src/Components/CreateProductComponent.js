@@ -33,6 +33,8 @@ const styles = {
     }
 }
 
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/your_cloudinary_app_name/upload';
+
 class CreateProductComponent extends Component {
 
     constructor(props){
@@ -44,6 +46,8 @@ class CreateProductComponent extends Component {
             name: '',
             desc: '',
             price: '',
+            cloudID: []
+
         }
     }
 
@@ -56,7 +60,7 @@ class CreateProductComponent extends Component {
         })
 
         this.setState({
-            images: array
+            images: array,
         });
     }
 
@@ -80,26 +84,53 @@ class CreateProductComponent extends Component {
     }
 
     onCreate = () => {
-        const url = ENV.host + ':' + ENV.port + '/main/add';
-        const data = new FormData();
-        data.append('user', store.userStore.name);
-        data.append('images', this.state.images);
-        data.append('name', this.state.name);
-        data.append('desc', this.state.desc);
-        data.append('category', this.state.cat);
-        data.append('price', this.state.price);
+        //const url = ENV.host + ':' + ENV.port + '/main/add';
+        const url = ENV.host + '/main/add';
+        const url2 = "Cloudinary"
+        var data = new FormData();
+        console.log("bin do")
 
+        this.state.images.map((img) => {
+            axios({
+                method: 'post',
+                url: url2,
+                data: {
+                    'upload-preset': img.name,
+                    'file': img
+                }
+            }).end(res => res.body.secure_url !== '' ? this.setState({cloudID: this.state.cloudID.push(res.body.secure_url)}) : '')
+            console.log(this.state.cloudID)
+        })
+
+
+
+        console.log(this.state.images);
+        data.set('images', this.state.cloudID);
+        data.set('user', store.userStore.name.get());
+        data.set('name', this.state.name);
+        data.set('desc', this.state.desc);
+        data.set('category', this.state.cat);
+        data.set('price', this.state.price);
 
         return axios({
             method: 'post',
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
             url: url,
             withCredentials: true,
-            data: {
-                data: data
-            },
+            data: data,
+                // user: store.userStore.name.get(),
+                // name: this.state.name,
+                // desc: this.state.desc,
+                // category: this.state.cat,
+                // price: this.state.price,
+                // data: data
+            // },
             responseType: 'json'
-        })
+        }).then(res => console.log(res))
     }
+
 
     render() {
         console.log(this.state.images)
@@ -114,18 +145,18 @@ class CreateProductComponent extends Component {
                         return <li key={it.name}>{it.name}-{it.size} bytes</li>
                     })}
                 </ul>
-                <form style={{width: "40%"}} onSubmit={this.onCreate}>
+                <form style={{width: "40%"}}>
                     <div style={{flex: 1}}>
                         <input style={{marginBottom: 10,  borderRadius: 0}} value={this.state.name} type="text" className="form-control" placeholder="Artikel Name" onChange={this.handleName} required={true}/>
                         <textarea style={{marginBottom: 10, borderRadius: 0}} maxLength={400} rows="4" cols="50" value={this.state.desc} className="form-control" placeholder="Artikel Beschreibung" onChange={this.handleDesc} required={true}/>
                         <select style={styles.sel} value={this.state.cat} onChange={this.handleCat} required={true}>
-                            <option>Bücher</option>
-                            <option>Nachhilfe</option>
                             <option>Sonstiges</option>
+                            <option>Nachhilfe</option>
+                            <option>Bücher</option>
                         </select>
                         <input style={{marginBottom: 10, borderRadius: 0}} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice} required={true}/>
                     </div>
-                    <button type="submit" className="btn btn-success btn-block" style={{borderRadius: 0, height: 30}}>Produkt erstellen</button>
+                    <button onClick={this.onCreate} type="button" className="btn btn-success btn-block" style={{borderRadius: 0, height: 30}}>Produkt erstellen</button>
                 </form>
             </div>
         );

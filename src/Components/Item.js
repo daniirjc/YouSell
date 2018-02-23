@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {reqItem} from "../api/main";
+import {reqItem, spliceObservable} from "../api/main";
 import Modal from 'react-modal';
 import {observer} from 'mobx-react'
 import store from '../stores'
@@ -70,6 +70,10 @@ class Item extends Component {
             currItem: [],
             show: true,
             msg: '',
+            currentPage: 1,
+            pageCount: 0,
+            itemsPerPage: 12,
+            loading: true
         }
     }
 
@@ -86,19 +90,46 @@ class Item extends Component {
     }
 
     componentWillMount() {
-        store.itemStore.reqItem(0);
-        store.socketStore.socket.emit('ack', store.userStore.name)
+        store.itemStore.reqItem().then(() =>{
+            let page = store.itemStore.items.count / this.state.itemsPerPage;
+            console.log("xxx",page)
+
+            if(store.itemStore.items.length < 12){
+                this.setState({itemsPerPage: store.itemStore.items.length})
+            }
+
+            this.setState({
+                items: store.itemStore.items,
+                pageCount: page,
+                loading: false
+            });
+        })
     }
 
+    changePageCount = (newAmount) => {
+        if (this.state.pageCount !== newAmount) {
+            let curPage = this.state.currentPage > newAmount ? 1 : this.state.currentPage
+            this.setState({
+                pageCount: newAmount,
+                currentPage: curPage
+            })
+        }
+    }
 
+    changeCurrentPage = (num) => {
+        console.log("ass" + num)
 
+        this.setState({
+            currentPage: num
+        });
+    }
 
     render() {
         const {items} = this.state;
         const {history} = this.props;
 
 
-        return (
+        return ( this.state.loading ? '' :
             <div className="container" style={{textAlign: "center"}}>
                 <Modal className="custommodal"
                        isOpen={this.state.modalisOpen}
@@ -113,7 +144,7 @@ class Item extends Component {
                     <div style={{flex: 2}}>
                         <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
                         <p>{this.state.currItem.art_desc}</p>
-                        <p style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} {store.userStore.name.get()} <RatingComponent/></span> </p>
+                        <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent/> {this.state.currItem.art_creator}</span> </div>
                         <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
                     </div>
                     <button style={{fontSize: 15,top: 0, right: -7, position: "absolute", border: "none" }} className="glyphicon glyphicon-remove-sign" onClick={this.closeModal}/>
@@ -121,7 +152,7 @@ class Item extends Component {
 
                 <div className="row" style={styles.productview}>
                     {
-                        store.itemStore.items.map(function (menuItem) {
+                        store.itemStore.spliceObservable(this.state.itemsPerPage * (this.state.currentPage-1), this.state.itemsPerPage * this.state.currentPage).map(function (menuItem) {
                             const desc = `${menuItem.art_desc.substring(0,50)}...`
                             return (
                                 <div onClick={() => {
@@ -141,7 +172,7 @@ class Item extends Component {
                         }, this)
                     }
                 </div>
-                {store.itemStore.items.length === 0 ? <ClipLoader color="#26A65B" size={50}/> : <PaginationComponent/>}
+                {store.itemStore.items.length === 0 ? <ClipLoader color="#26A65B" size={50}/> : <PaginationComponent itemsAmount={this.state.itemsPerPage} changePage={this.changeCurrentPage} changePageCount={this.changePageCount}/>}
             </div>
         );
     }

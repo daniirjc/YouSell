@@ -1,27 +1,34 @@
 import React, {Component} from "react";
 import Background from '../account_pic.png';
 import store from '../stores';
+import axios from 'axios';
+import ENV from "../api/env";
 
-const styles = {
-    pp: {
-        display: "flex",
-        flexDirection: "column",
-    }
-}
+
 
 class ProfileComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            items: []
+        }
+    }
+
+
+
+    openModal = () => {
+        this.setState({modalisOpen: true})
+    }
+
+    closeModal = () => {
+        this.setState({modalisOpen: false})
+    }
+
+
     render() {
         return (
-
-            <div style={styles.pp}>
-                <div style={{flex: 1, flexDirection: "row"}}>
-                    <img src={Background} style={{border: "solid", borderWidth: 1}} className="img-circle" />
-                    <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{store.userStore.name.get()}</h3>
-                </div>
-                <div style={{flex: 1}}>
-
-                </div>
-            </div>
+<div></div>
         );
     }
 }

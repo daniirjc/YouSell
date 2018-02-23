@@ -28,7 +28,7 @@ class RatingComponent extends Component {
             <ReactStars
                 count={5}
                 onChange={this.ratingChanged}
-                size={24}
+                size={12}
                 color2={'#ffd700'}
                 value={this.state.rating}
                 edit={this.state.edit}

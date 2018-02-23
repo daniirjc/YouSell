@@ -4,11 +4,12 @@ import { postLoginDetails, fetchToken } from '../api/login';
 class UserStore {
 
     name = observable('');
-    isAuthenticated = observable(false);
     loginLoading = observable(false);
     token = observable('');
     error = observable(false);
     errorText = observable('');
+    isAuthenticated = observable(false);
+
 
     login = action((username, password, cb) => {
         this.name = observable(username);
@@ -18,13 +19,14 @@ class UserStore {
                 console.log('Data received');
                 this.token = data._csrf;
                 console.log(this.token);
+                console.log(data)
                 this.error.set(false);
                 this.errorText = observable('');
                 postLoginDetails(username, password, this.token).then((res) => {
                     if (res.data.success) {
                         this.isAuthenticated.set(true)
+                        console.log(this.isAuthenticated.get())
                         console.log('Logged in')
-                        console.log(res.data.amount)
                         cb();
                     } else {
                         this.error.set(true);

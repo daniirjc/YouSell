@@ -7,7 +7,6 @@ class MessageComponent extends Component {
         return (
             <div>
 
-
             </div>
         );
     }

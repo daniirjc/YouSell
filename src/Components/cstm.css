@@ -18,7 +18,9 @@
     flex-direction: row;
     font-family: sans-serif;
 }
-
+.ReactModal__Body--open {
+    overflow-y: hidden;
+}
 .customnav {
     display: flex;
     justify-content: space-between;

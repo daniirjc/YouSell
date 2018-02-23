@@ -25,7 +25,7 @@ class MsgComponent extends Component {
     }
 
     sendMsg = () => {
-        store.socketStore.socket.emit('message', this.state.msg)
+        //store.socketStore.socket.emit('message', this.state.msg)
     }
 
 
