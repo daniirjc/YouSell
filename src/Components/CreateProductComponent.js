@@ -33,8 +33,6 @@ const styles = {
     }
 }
 
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/your_cloudinary_app_name/upload';
-
 class CreateProductComponent extends Component {
 
     constructor(props){
@@ -46,8 +44,6 @@ class CreateProductComponent extends Component {
             name: '',
             desc: '',
             price: '',
-            cloudID: []
-
         }
     }
 
@@ -84,28 +80,13 @@ class CreateProductComponent extends Component {
     }
 
     onCreate = () => {
-        //const url = ENV.host + ':' + ENV.port + '/main/add';
-        const url = ENV.host + '/main/add';
-        const url2 = "Cloudinary"
-        var data = new FormData();
-        console.log("bin do")
+        const url = ENV.host + ':' + ENV.port + '/main/add';
+        //const url = ENV.host + '/main/add';
 
-        this.state.images.map((img) => {
-            axios({
-                method: 'post',
-                url: url2,
-                data: {
-                    'upload-preset': img.name,
-                    'file': img
-                }
-            }).end(res => res.body.secure_url !== '' ? this.setState({cloudID: this.state.cloudID.push(res.body.secure_url)}) : '')
-            console.log(this.state.cloudID)
-        })
-
-
+        let data = new FormData()
 
         console.log(this.state.images);
-        data.set('images', this.state.cloudID);
+        data.set('images', this.state.images);
         data.set('user', store.userStore.name.get());
         data.set('name', this.state.name);
         data.set('desc', this.state.desc);

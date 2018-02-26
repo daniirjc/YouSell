@@ -144,7 +144,7 @@ class Item extends Component {
                     <div style={{flex: 2}}>
                         <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
                         <p>{this.state.currItem.art_desc}</p>
-                        <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent/> {this.state.currItem.art_creator}</span> </div>
+                        <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
                         <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
                     </div>
                     <button style={{fontSize: 15,top: 0, right: -7, position: "absolute", border: "none" }} className="glyphicon glyphicon-remove-sign" onClick={this.closeModal}/>

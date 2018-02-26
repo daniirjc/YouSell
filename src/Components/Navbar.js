@@ -115,7 +115,7 @@ class NavbarComponent extends React.Component {
 
     onSearch = () => {
         const url = ENV.host + ':' + ENV.port + '/search';
-        // const url = ENV.host + '/search';
+        //const url = ENV.host + '/search';
 
         console.log(cat);
         let cat = this.state.cat === 'Kategorien' ? null : this.state.cat

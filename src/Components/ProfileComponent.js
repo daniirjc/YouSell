@@ -15,8 +15,6 @@ class ProfileComponent extends Component {
         }
     }
 
-
-
     openModal = () => {
         this.setState({modalisOpen: true})
     }
@@ -28,7 +26,7 @@ class ProfileComponent extends Component {
 
     render() {
         return (
-<div></div>
+            <div></div>
         );
     }
 }
