@@ -45,6 +45,7 @@ const styles = {
     title: {
         fontSize: 17,
         color: "rgba(95,183,96,1)",
+        textAlign: "left"
 
     },
     content: {

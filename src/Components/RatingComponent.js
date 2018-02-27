@@ -2,7 +2,7 @@ import ReactStars from 'react-stars'
 import React, {Component} from 'react'
 import "./cstm.css"
 import Background from '../account_pic.png';
-
+import store from '../stores';
 
 
 class RatingComponent extends Component {
@@ -17,11 +17,8 @@ class RatingComponent extends Component {
     }
 
     ratingChanged = (newRating) => {
-        this.setState({
-            rating: newRating,
-            edit: false
-        })
-
+        store.userStore.rating.set(newRating)
+        store.userStore.sendRating()
     };
 
     render () {
@@ -37,7 +34,7 @@ class RatingComponent extends Component {
                         onChange={this.ratingChanged}
                         size={12}
                         color2={'#ffd700'}
-                        value={this.state.rating}
+                        value={store.userStore.sumrating}
                         edit={this.state.edit}
                         style={{float: "right"}}
                     />

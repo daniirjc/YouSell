@@ -16,6 +16,8 @@ class UserStore {
     errorText = observable('');
     isAuthenticated = observable(false);
     userItems = observable([]);
+    rating = observable(0.0)
+    sumrating = observable(0.0)
 
     login = action((username, password, cb) => {
         this.name = observable(username);
@@ -51,7 +53,7 @@ class UserStore {
     })
 
     deleteItem = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/search/remove';
+        let url = ENV.host + ':' + ENV.port + '/main/remove';
         //let url = ENV.host + '/search/user'
 
         return axios({
@@ -81,6 +83,37 @@ class UserStore {
             console.log(finalResult)
             this.userItems.replace(finalResult.data.items);
         }).catch(e => console.log("error",e));
+    })
+
+    sendRating = action((id) => {
+        let url = ENV.host + ':' + ENV.port + '/rate';
+        return axios ({
+            method: 'post',
+            url: url,
+            data: {
+                user: this.name,
+                rating: this.rating
+            },
+            responseType: 'json'
+        }).then(finalResult => {
+            this.sumrating.set(finalResult.data.avgRating)
+        }).catch(e => console.log(e))
+
+
+    })
+
+    getRating = action ((id) => {
+        let url = ENV.host + ':' + ENV.port + '/rate';
+        return axios ({
+            method: 'post',
+            url: url,
+            data: {
+                user: this.name,
+            },
+            responseType: 'json'
+        }).then(finalResult => {
+            this.sumrating.set(finalResult.data.avgRating)
+        }).catch(e => console.log(e))
     })
 }
 

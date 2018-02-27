@@ -18,7 +18,7 @@ const myStorage = window.localStorage;
 function PrivateRoute ({component: Component, authed, ...rest}) {
     //const x = myStorage.getItem("auth")
     return (
-        authed.get() ? <Route component={Front}/> : <Redirect to={"/"}/>
+        authed.get() ? <Route path="/main" component={Front}/> : <Redirect to={"/"}/>
     );
 }
 

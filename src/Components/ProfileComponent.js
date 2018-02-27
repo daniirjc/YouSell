@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import { observer } from 'mobx-react'
 import Background from '../account_pic.png';
 import store from '../stores';
-import axios from 'axios';
-import ENV from "../api/env";
 import './products.css'
+import ReactStars from 'react-stars'
+
 
 const styles = {
     thumb: {
@@ -15,8 +15,7 @@ const styles = {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        alignItems: "flex-start",
-        justifyContent: "space-between"
+
     },
     productview: {
         display: 'flex',
@@ -24,6 +23,8 @@ const styles = {
         flexDirection: 'row',
         marginTop: 5,
         fontFamily: "'Open Sans',sans-serif",
+        alignItems: "flex-start",
+        justifyContent: "space-around",
     },
     space: {
         marginBottom: 10,
@@ -40,6 +41,11 @@ class ProfileComponent extends Component {
         }
     }
 
+    componentWillMount () {
+        store.userStore.getUserItems()
+        store.userStore.getRating()
+    }
+
     deleteItem = (id) => {
         store.userStore.deleteItem(id)
     }
@@ -49,12 +55,20 @@ class ProfileComponent extends Component {
         console.log("Useritems",store.userStore.userItems)
         return (
             <div>
-                <div style={{display:"flex", flexDirection: "row"}}>
-                    <img src={Background} style={{border: "solid", borderWidth: 1}} className="img-circle"/>
-                    <h3 style={{
-                        marginLeft: 150,
-                        color: "rgba(95,183,96,1"
-                    }}>{store.userStore.name.get()}</h3>
+                <div style={{display:"flex", flexDirection: "row", justifyContent: "center"}}>
+                    <img src={Background} style={{border: "solid", borderWidth: 1, alignItems: "flex-start"}} className="img-circle"/>
+                    <div>
+                        <h3 style={{
+                            color: "rgba(95,183,96,1"
+                        }}>{store.userStore.name.get()}</h3>
+                        <ReactStars count={5}
+                                    size={12}
+                                    color2={'#ffd700'}
+                                    value={store.userStore.sumrating}
+                                    edit={false}
+                        />
+                    </div>
+
                 </div>
                 <h1 style={{fontSize: 15, color: "grey"}}>Meine Produkte</h1><hr style={{marginTop: 0}}/>
                 <div style={styles.productview}>
@@ -70,7 +84,7 @@ class ProfileComponent extends Component {
                                             <p>{desc}</p>
                                             <h5>Preis: € {menuItem.art_price}</h5>
                                         </div>
-                                    <button className="close" onClick={this.deleteItem(menuItem._id)}/>
+                                    <button className="close" onClick={() => this.deleteItem(menuItem._id)}/>
                                 </div>
                             </div>)
                         })

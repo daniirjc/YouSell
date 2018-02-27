@@ -30,9 +30,7 @@ class DropDownComponent extends Component {
     }
 
     openModal = () => {
-        store.userStore.getUserItems().then(
-            this.setState({modalisOpen: true})
-        )
+        this.setState({modalisOpen: true})
     }
 
     closeModal = () => {
