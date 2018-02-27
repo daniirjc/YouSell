@@ -2,6 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react'
 import store from '../stores';
 import { ClipLoader } from 'react-spinners';
+import Background from '../Logo1.png'
+
 
 const bg = {
     backgroundColor: "rgba(0,0,0, 0.5)",
@@ -56,6 +58,7 @@ class LoginForm extends React.Component {
                     <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin} style={{textAlign: 'center'}}>
                         <input name="_csrf" value={this.state.token} type="hidden" readOnly={true} />
                         <label style={head}>
+                            <img style={{height: 50}} src={Background} /><br/>
                             LOGIN
                         </label>
                         <div style={{marginBottom: 25}} className="input-group">

@@ -28,7 +28,7 @@ class RatingComponent extends Component {
         console.log(this.state.rating)
         console.log(this.state.edit)
         return (
-            <div style={{display: "flex", flexDirection: "row"}}>
+            <div style={{display: "flex", flexDirection: "row", justifyContent:"flex-end"}}>
                 <img src={Background} style={{border: "solid", borderWidth: 1, height: 30, width: 30}} className="img-circle"/>
                 <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
                     <span style={{fontSize: 10, color: "black"}}>{this.props.creator}</span>

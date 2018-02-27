@@ -25,8 +25,8 @@ class LoginPage extends React.Component {
     render () {
         return (
             <div className="container-fluid" style={bg}>
-                <div className="row">
-                    <div className="col-xs-9 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+                <div className="row" style={{display: "flex", justifyContent: "center"}}>
+                    <div className="col-xs-9  col-sm-6  col-md-4 col-lg-4 ">
                         <LoginForm onLoginSuccess={() => this.props.history.push('/main')}/>
                     </div>
                 </div>

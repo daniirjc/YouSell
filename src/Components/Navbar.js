@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import ENV from "../api/env";
 import * as axios from "axios";
 import store from '../stores'
-
+import Background from '../Logo1.png'
 
 
 
@@ -61,8 +61,7 @@ const styles = {
         backgroundColor: "#eee"
     },
     brand: {
-        color: "rgba(95,183,96,1)",
-        fontSize: 30,
+        backgroundImage: Background,
         marginTop: 10,
     },
 
@@ -142,6 +141,15 @@ class NavbarComponent extends React.Component {
 
     }
 
+    toggleNav = () => {
+        let doc = document.querySelector('.narrowLinks')
+        if (doc.style.display === 'flex') {
+            doc.style.flexDirection = 'none';
+        } else {
+            doc.style.flexDirection = 'none';
+        }
+    }
+
     render() {
         return (
 
@@ -154,39 +162,49 @@ class NavbarComponent extends React.Component {
                        ariaHideApp={false}
                 >
                     <CreateProductComponent/>
-                    <button style={{fontSize: 15,top: 0, right: -7, position: "absolute", border: "none" }} className="glyphicon glyphicon-remove-sign" onClick={this.closeModal}/>
+                    <button className="close" onClick={this.closeModal}/>
                 </Modal>
-                <nav style={styles.bg}>
-                    <div className="navbar-header">
-                        <a style={styles.brand} className="navbar-brand" href="/main">YouSell</a>
-                    </div>
+                <nav >
+                    <div className="navWide">
+                        <div className="navbar-header">
+                            <a href="/main"><img style={{height: 40, marginBottom: 5, marginTop: 5, marginLeft: 5}} src={Background}/></a>
+                        </div>
 
-                    <div style={styles.centnav} className="input-group">
+                        <div style={styles.centnav} className="input-group">
 
 
-                        <input style={styles.searchPro} onChange={this.handleSearchInput} value={this.state.search} type="text" name="search" placeholder="Ich suche nach ... " className="input-group-addon"/>
+                            <input style={styles.searchPro} onChange={this.handleSearchInput} value={this.state.search} type="text" name="search" placeholder="Ich suche nach ... " className="input-group-addon"/>
 
-                        <select style={styles.searchKat} onChange={this.handleCatInput} value={this.state.cat}>
-                            <option value="" selected disabled hidden>Choose</option>
-                            <option>Nachhilfe</option>
-                            <option>Bücher</option>
-                            <option>Sonstiges</option>
-                        </select>
+                            <select style={styles.searchKat} onChange={this.handleCatInput} value={this.state.cat}>
+                                <option value="" selected disabled hidden>Choose</option>
+                                <option>Nachhilfe</option>
+                                <option>Bücher</option>
+                                <option>Sonstiges</option>
+                            </select>
 
                             <button className="input-group-addon" style={{borderWidth: 0.5, backgroundColor: "white"}} onClick={this.onSearch}>
                                 <span className="glyphicon glyphicon-search" style={{verticalAlign: "middle", right: 6, top: 0}}/>
                             </button>
+                        </div>
+
+                        <div style={styles.rightnav}>
+                            <div style={{marginTop: 15, marginRight: 20}}>
+                                <button style={styles.sell} className="btn btn-success btn-block" onClick={this.openModal}>+Verkaufen
+                                </button>
+                            </div>
+                            <div style={{marginTop: 14, marginRight: 70}}>
+                                <DropDownComponent/>
+                            </div>
+                        </div>
                     </div>
 
-                    <div style={styles.rightnav}>
-                        <div style={{marginTop: 15}}>
-                            <button style={styles.sell} className="btn btn-success btn-block" onClick={this.openModal}>+Verkaufen
-                            </button>
+                    <div className="navNarrow">
+                        <i className="fas fa-bars" onClick={this.toggleNav}/>
+                        <div className="narrowLinks">
+                            <a href="#" onClick={this.toggleNav}>Link 1</a>
+                            <a href="#" onClick={this.toggleNav}>Link 2</a>
+                            <a href="#" onClick={this.toggleNav}>Link 3</a>
                         </div>
-                        <div style={{marginTop: 14, marginRight: 70}}>
-                            <DropDownComponent/>
-                        </div>
-
                     </div>
                 </nav>
             </div>
@@ -195,4 +213,5 @@ class NavbarComponent extends React.Component {
     }
 }
 
+document.querySelector('NavbarComponent');
 export default NavbarComponent;

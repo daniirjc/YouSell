@@ -8,9 +8,6 @@ import MsgComponent from "./MsgComponent";
 import RatingComponent from "./RatingComponent";
 import PaginationComponent from "./PaginationComponent";
 import { ClipLoader } from 'react-spinners';
-import { socketConnect } from 'socket.io-react';
-
-
 
 const styles = {
     productview: {
@@ -94,7 +91,7 @@ class Item extends Component {
             let page = store.itemStore.items.count / this.state.itemsPerPage;
             console.log("xxx",page)
 
-            if(store.itemStore.items.length < 12){
+            if(store.itemStore.items.length < this.state.itemsPerPage){
                 this.setState({itemsPerPage: store.itemStore.items.length})
             }
 
@@ -125,31 +122,26 @@ class Item extends Component {
     }
 
     render() {
-        const {items} = this.state;
-        const {history} = this.props;
-
-
         return ( this.state.loading ? '' :
             <div className="container" style={{textAlign: "center"}}>
-                <Modal className="custommodal"
-                       isOpen={this.state.modalisOpen}
-                       onRequestClose={this.closeModal}
-                       contentLabel="GG"
-                       ariaHideApp={false}
-                >
-                    <div style={{flex: 1, marginRight: 10}}>
-                        <CarouselComponent images={this.state.currItem.img}/>
-                    </div>
+                    <Modal className="custommodal"
+                           isOpen={this.state.modalisOpen}
+                           onRequestClose={this.closeModal}
+                           contentLabel="GG"
+                           ariaHideApp={false}
+                    >
+                        <div style={{flex: 1, marginRight: 10}}>
+                            <CarouselComponent images={this.state.currItem.img}/>
+                        </div>
 
-                    <div style={{flex: 2}}>
-                        <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
-                        <p>{this.state.currItem.art_desc}</p>
-                        <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
-                        <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
-                    </div>
-                    <button style={{fontSize: 15,top: 0, right: -7, position: "absolute", border: "none" }} className="glyphicon glyphicon-remove-sign" onClick={this.closeModal}/>
-                </Modal>
-
+                        <div style={{flex: 2}}>
+                            <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
+                            <p>{this.state.currItem.art_desc}</p>
+                            <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
+                            <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
+                        </div>
+                        <button className="close" onClick={this.closeModal}/>
+                    </Modal>
                 <div className="row" style={styles.productview}>
                     {
                         store.itemStore.spliceObservable(this.state.itemsPerPage * (this.state.currentPage-1), this.state.itemsPerPage * this.state.currentPage).map(function (menuItem) {
@@ -177,6 +169,5 @@ class Item extends Component {
         );
     }
 }
-
 
 export default observer(Item);

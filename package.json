@@ -12,18 +12,20 @@
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-chat-elements": "^0.8.2",
+    "react-cookies": "^0.1.0",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.7",
+    "react-icons": "^2.2.7",
     "react-images": "^0.5.17",
     "react-lightbox-component": "^0.2.0",
     "react-modal": "^3.1.11",
+    "react-router": "latest",
     "react-router-dom": "^4.2.2",
     "react-spinners": "^0.2.6",
     "react-stars": "^2.2.5",
     "react-viewer": "^2.3.1",
     "reactstrap": "^4.8.0",
-    "socket.io-react": "^1.2.0",
-    "react-router": "latest"
+    "socket.io-react": "^1.2.0"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"

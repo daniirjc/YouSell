@@ -13,9 +13,10 @@ import store from './stores';
 
 
 const history = createHistory()
+const myStorage = window.localStorage;
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
-    {console.log(authed)}
+    //const x = myStorage.getItem("auth")
     return (
         authed.get() ? <Route component={Front}/> : <Redirect to={"/"}/>
     );
@@ -24,7 +25,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
 class App extends Component {
     render() {
         const auth = store.userStore.isAuthenticated;
-        console.log(store.userStore.isAuthenticated.get())
+        console.log("dei mum", store.userStore.isAuthenticated.get())
         return (
             <SocketProvider socket={store.socketStore.socket}>
                 <div className="center">

@@ -77,7 +77,7 @@ class CarouselComponent extends Component {
                         {
                             this.props.images.map((img, i) => {
                                 return (<Slide index={i}>
-                                    <img src={img} style={{maxWidth: "100%", height: "auto"}} onClick={ (e) => this.openPreview(i,e)}/>
+                                    <img src={img} style={{maxWidth: "100%", height: "100%"}} onClick={ (e) => this.openPreview(i,e)}/>
                                 </Slide>)
                             })
                         }

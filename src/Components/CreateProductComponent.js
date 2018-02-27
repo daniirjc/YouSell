@@ -84,32 +84,19 @@ class CreateProductComponent extends Component {
         //const url = ENV.host + '/main/add';
 
         let data = new FormData()
+        this.state.images.forEach(item => {
+            data.append('images', item, item['name']);
+        });
 
-        console.log(this.state.images);
-        data.set('images', this.state.images);
-        data.set('user', store.userStore.name.get());
-        data.set('name', this.state.name);
-        data.set('desc', this.state.desc);
-        data.set('category', this.state.cat);
-        data.set('price', this.state.price);
+        data.append('user', store.userStore.name.get());
+        data.append('product', this.state.name);
+        data.append('desc', this.state.desc);
+        data.append('category', this.state.cat);
+        data.append('price', this.state.price);
 
-        return axios({
-            method: 'post',
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            },
-            url: url,
-            withCredentials: true,
-            data: data,
-                // user: store.userStore.name.get(),
-                // name: this.state.name,
-                // desc: this.state.desc,
-                // category: this.state.cat,
-                // price: this.state.price,
-                // data: data
-            // },
-            responseType: 'json'
-        }).then(res => console.log(res))
+        return axios.post(url, data).then(res => {
+            console.log(res)
+        }).catch(e => console.log(e))
     }
 
 

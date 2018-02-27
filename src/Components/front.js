@@ -17,7 +17,10 @@ class Front extends React.Component {
         return(
             <div>
                 <div style={styles.bg}>
-                    <NavbarComponent/>
+                    <div>
+                        <NavbarComponent/>
+
+                    </div>
                     <Item history={this.props.history} />
                 </div>
             </div>

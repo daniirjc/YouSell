@@ -28,12 +28,8 @@ class MsgComponent extends Component {
         //store.socketStore.socket.emit('message', this.state.msg)
     }
 
-
-
-
-
     render () {
-        var data = {
+        let data = {
             msg: this.state.msg,
             user: this.props.user
         };
