@@ -2,7 +2,7 @@ import React from 'react';
 import ENV from './env';
 import axios from 'axios';
 import axiosDefault from 'axios/lib/defaults';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -11,8 +11,8 @@ axiosDefault.xsrfHeaderName = "X-CSRFToken";
 
 
 export function postLoginDetails(username, password, token) {
-    //const url = ENV.host + ':'+ ENV.port + '/login';
-    const url = ENV.host + "/login";
+    const url = ENV.host + ':' + ENV.port + '/login';
+    // const url = ENV.host + "/login";
 
     return axios({
         method: 'post',
@@ -30,8 +30,8 @@ export function postLoginDetails(username, password, token) {
 }
 
 export function fetchToken() {
-    //const url = ENV.host + ':' + ENV.port + '/login';
-    const url = ENV.host + '/login';
+    const url = ENV.host + ':' + ENV.port + '/login';
+    // const url = ENV.host + '/login';
     console.log("im fetching")
     console.log(url)
     return fetch(url)

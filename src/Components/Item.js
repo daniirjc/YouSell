@@ -139,7 +139,7 @@ class Item extends Component {
                             <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
                             <p>{this.state.currItem.art_desc}</p>
                             <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
-                            <MsgComponent show={this.state.show} user={this.state.currItem.art_creator}/>
+                            <MsgComponent show={this.state.show} user={this.state.currItem.art_creator} />
                         </div>
                         <button className="close" onClick={this.closeModal}/>
                     </Modal>

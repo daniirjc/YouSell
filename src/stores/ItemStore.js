@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx'
+import { observable, action } from 'mobx'
 import axios from 'axios';
 import ENV from '../api/env';
 
@@ -10,8 +10,8 @@ class ItemStore {
     page = observable(1);
 
     reqItem = action(() => {
-        //const url = ENV.host + ':' + ENV.port + '/main'
-        const url = ENV.host + "/main"
+        const url = ENV.host + ':' + ENV.port + '/main'
+        // const url = ENV.host + "/main"
 
         return axios.post(url, {
             responseType: 'json',
@@ -22,12 +22,12 @@ class ItemStore {
     });
 
     spliceObservable = action((start, end) => {
-        if(this.loaded) {
+        if (this.loaded) {
             console.log("I'm splicing");
             console.log(this.items);
             console.log(start, end)
             let sliced = this.items.slice(start, end);
-            console.log("sliced",sliced)
+            console.log("sliced", sliced)
             return sliced
         } else {
             console.log("Loaded: ", this.loaded);

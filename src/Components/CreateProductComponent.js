@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Dropzone from 'react-dropzone'
 import ENV from "../api/env";
 import * as axios from "axios";
@@ -35,7 +35,7 @@ const styles = {
 
 class CreateProductComponent extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -61,27 +61,27 @@ class CreateProductComponent extends Component {
     }
 
     handleName = (event) => {
-        this.setState({name: event.target.value} )
+        this.setState({ name: event.target.value })
         console.log(this.state.name)
 
     }
     handleDesc = (event) => {
-        this.setState({desc: event.target.value} )
+        this.setState({ desc: event.target.value })
         console.log(this.state.desc)
 
     }
     handlePrice = (event) => {
-        this.setState({price: event.target.value} )
+        this.setState({ price: event.target.value })
         console.log(this.state.price)
 
     }
     handleCat = (event) => {
-        this.setState({cat: event.target.value} )
+        this.setState({ cat: event.target.value })
     }
 
     onCreate = () => {
-        //const url = ENV.host + ':' + ENV.port + '/main/add';
-        const url = ENV.host + '/main/add';
+        const url = ENV.host + ':' + ENV.port + '/main/add';
+        // const url = ENV.host + '/main/add';
 
         let data = new FormData()
         this.state.images.forEach(item => {
@@ -103,28 +103,28 @@ class CreateProductComponent extends Component {
     render() {
         console.log(this.state.images)
         return (
-            <div style={{width: "100%"}}>
-                <Dropzone style={styles.uploader} accept="image/jpeg, image/png" onDrop={(accepted) => {this.attachToArray(accepted)}}>
-                    <span style={{marginTop: 15}} className="glyphicon glyphicon-hdd"/>
-                    <p style={{fontWeight: "bold",color: "grey"}}>Foto auswählen oder hier hineinziehen!</p>
+            <div style={{ width: "100%" }}>
+                <Dropzone style={styles.uploader} accept="image/jpeg, image/png" onDrop={(accepted) => { this.attachToArray(accepted) }}>
+                    <span style={{ marginTop: 15 }} className="glyphicon glyphicon-hdd" />
+                    <p style={{ fontWeight: "bold", color: "grey" }}>Foto auswählen oder hier hineinziehen!</p>
                 </Dropzone>
                 <ul>
                     {this.state.images.map((it) => {
                         return <li key={it.name}>{it.name}-{it.size} bytes</li>
                     })}
                 </ul>
-                <form style={{width: "40%"}}>
-                    <div style={{flex: 1}}>
-                        <input style={{marginBottom: 10,  borderRadius: 0}} value={this.state.name} type="text" className="form-control" placeholder="Artikel Name" onChange={this.handleName} required={true}/>
-                        <textarea style={{marginBottom: 10, borderRadius: 0}} maxLength={400} rows="4" cols="50" value={this.state.desc} className="form-control" placeholder="Artikel Beschreibung" onChange={this.handleDesc} required={true}/>
+                <form style={{ width: "40%" }}>
+                    <div style={{ flex: 1 }}>
+                        <input style={{ marginBottom: 10, borderRadius: 0 }} value={this.state.name} type="text" className="form-control" placeholder="Artikel Name" onChange={this.handleName} required={true} />
+                        <textarea style={{ marginBottom: 10, borderRadius: 0 }} maxLength={400} rows="4" cols="50" value={this.state.desc} className="form-control" placeholder="Artikel Beschreibung" onChange={this.handleDesc} required={true} />
                         <select style={styles.sel} value={this.state.cat} onChange={this.handleCat} required={true}>
                             <option>Sonstiges</option>
                             <option>Nachhilfe</option>
                             <option>Bücher</option>
                         </select>
-                        <input style={{marginBottom: 10, borderRadius: 0}} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice} required={true}/>
+                        <input style={{ marginBottom: 10, borderRadius: 0 }} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice} required={true} />
                     </div>
-                    <button onClick={this.onCreate} type="button" className="btn btn-success btn-block" style={{borderRadius: 0, height: 30}}>Produkt erstellen</button>
+                    <button onClick={this.onCreate} type="button" className="btn btn-success btn-block" style={{ borderRadius: 0, height: 30 }}>Produkt erstellen</button>
                 </form>
             </div>
         );

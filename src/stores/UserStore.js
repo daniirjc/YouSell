@@ -1,5 +1,5 @@
-import {observable, action} from 'mobx'
-import {postLoginDetails, fetchToken} from '../api/login';
+import { observable, action } from 'mobx'
+import { postLoginDetails, fetchToken } from '../api/login';
 import ENV from "../api/env";
 import * as axios from "axios";
 
@@ -53,8 +53,8 @@ class UserStore {
     })
 
     deleteItem = action((id) => {
-        //let url = ENV.host + ':' + ENV.port + '/main/remove';
-        let url = ENV.host + '/search/user'
+        let url = ENV.host + ':' + ENV.port + '/main/remove';
+        // let url = ENV.host + '/search/user'
 
         return axios({
             method: 'post',
@@ -69,8 +69,8 @@ class UserStore {
     });
 
     getUserItems = action((id) => {
-        //let url = ENV.host + ':' + ENV.port + '/search/user';
-        let url = ENV.host + '/search/user'
+        let url = ENV.host + ':' + ENV.port + '/search/user';
+        // let url = ENV.host + '/search/user'
         return axios({
             method: 'post',
             url: url,
@@ -82,14 +82,14 @@ class UserStore {
             console.log("Looks good")
             console.log(finalResult)
             this.userItems.replace(finalResult.data.items);
-        }).catch(e => console.log("error",e));
+        }).catch(e => console.log("error", e));
     })
 
     sendRating = action((id) => {
-        //let url = ENV.host + ':' + ENV.port + '/rate';
-        let url = ENV.host + '/rate'
+        let url = ENV.host + ':' + ENV.port + '/rate';
+        // let url = ENV.host + '/rate'
 
-        return axios ({
+        return axios({
             method: 'post',
             url: url,
             data: {
@@ -104,15 +104,18 @@ class UserStore {
 
     })
 
-    getRating = action ((id) => {
+    getRating = action((id) => {
         //let url = ENV.host + ':' + ENV.port + '/rate';
-        let url = ENV.host + '/rate'
-        return axios ({
-            method: 'post',
+        // let url = ENV.host + '/rate'
+        let url = ENV.host + ':' + ENV.port + '/rate/' + this.name;
+
+        return axios({
+            // method: 'post',
+            method: 'GET',
             url: url,
-            data: {
-                user: this.name,
-            },
+            // data: {
+            //     user: this.name,
+            // },
             responseType: 'json'
         }).then(finalResult => {
             this.sumrating.set(finalResult.data.avgRating)
