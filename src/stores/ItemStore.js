@@ -10,8 +10,8 @@ class ItemStore {
     page = observable(1);
 
     reqItem = action(() => {
-        const url = ENV.host + ':' + ENV.port + '/main'
-        //const url = ENV.host + "/main"
+        //const url = ENV.host + ':' + ENV.port + '/main'
+        const url = ENV.host + "/main"
 
         return axios.post(url, {
             responseType: 'json',

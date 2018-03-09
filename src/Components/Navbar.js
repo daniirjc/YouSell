@@ -189,7 +189,7 @@ class NavbarComponent extends React.Component {
 
                         <div style={styles.rightnav}>
                             <div style={{marginTop: 15, marginRight: 20}}>
-                                <button style={styles.sell} className="btn btn-success btn-block" onClick={this.openModal}>+Verkaufen
+                                <button style={styles.sell} className="btn btn-success btn-block" onClick={this.openModal}>Verkaufen
                                 </button>
                             </div>
                             <div style={{marginTop: 14, marginRight: 70}}>

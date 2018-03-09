@@ -53,8 +53,8 @@ class UserStore {
     })
 
     deleteItem = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/main/remove';
-        //let url = ENV.host + '/search/user'
+        //let url = ENV.host + ':' + ENV.port + '/main/remove';
+        let url = ENV.host + '/search/user'
 
         return axios({
             method: 'post',
@@ -69,8 +69,8 @@ class UserStore {
     });
 
     getUserItems = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/search/user';
-        //let url = ENV.host + '/search/user'
+        //let url = ENV.host + ':' + ENV.port + '/search/user';
+        let url = ENV.host + '/search/user'
         return axios({
             method: 'post',
             url: url,
@@ -86,7 +86,9 @@ class UserStore {
     })
 
     sendRating = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/rate';
+        //let url = ENV.host + ':' + ENV.port + '/rate';
+        let url = ENV.host + '/rate'
+
         return axios ({
             method: 'post',
             url: url,
@@ -103,7 +105,8 @@ class UserStore {
     })
 
     getRating = action ((id) => {
-        let url = ENV.host + ':' + ENV.port + '/rate';
+        //let url = ENV.host + ':' + ENV.port + '/rate';
+        let url = ENV.host + '/rate'
         return axios ({
             method: 'post',
             url: url,

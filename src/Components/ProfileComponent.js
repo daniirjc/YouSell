@@ -55,7 +55,7 @@ class ProfileComponent extends Component {
         console.log("Useritems",store.userStore.userItems)
         return (
             <div>
-                <div style={{display:"flex", flexDirection: "row", justifyContent: "center"}}>
+                <div style={{display:"flex", flexDirection: "row"}}>
                     <img src={Background} style={{border: "solid", borderWidth: 1, alignItems: "flex-start"}} className="img-circle"/>
                     <div>
                         <h3 style={{

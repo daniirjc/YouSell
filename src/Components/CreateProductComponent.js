@@ -80,8 +80,8 @@ class CreateProductComponent extends Component {
     }
 
     onCreate = () => {
-        const url = ENV.host + ':' + ENV.port + '/main/add';
-        //const url = ENV.host + '/main/add';
+        //const url = ENV.host + ':' + ENV.port + '/main/add';
+        const url = ENV.host + '/main/add';
 
         let data = new FormData()
         this.state.images.forEach(item => {

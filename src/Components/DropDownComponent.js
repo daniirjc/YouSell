@@ -65,8 +65,8 @@ class DropDownComponent extends Component {
                 </Modal>
                 <div style={{zIndex: 100, position: "absolute"}}>
                     <DropdownButton className="glyphicon glyphicon-th" style={{borderRadius: 0, border: 0, width: 40}} title={""} pullRight={true} id={""} onSelect={this.changeContent}>
-                        <MenuItem eventKey={"Profile"} onClick={this.openModal}>Profile</MenuItem>
-                        <MenuItem eventKey={"Messages"} onClick={this.openModal}>Messages</MenuItem>
+                        <MenuItem eventKey={"Profile"} onClick={this.openModal}>Profil</MenuItem>
+                        <MenuItem eventKey={"Messages"} onClick={this.openModal}>Nachrichten</MenuItem>
                         <MenuItem divider />
                         <MenuItem eventKey={"Abmelden"} onClick={this.logout}>Abmelden</MenuItem>
                     </DropdownButton>
