@@ -12,8 +12,6 @@ const styles = {
     }
 }
 
-
-
 class CarouselComponent extends Component {
 
     constructor(props) {
@@ -35,23 +33,18 @@ class CarouselComponent extends Component {
     }
 
     nextImg = () => {
-        console.log("nextimg")
         this.setState({currImg: this.state.currImg+1})
-        console.log(this.state.currImg)
 
     }
 
     prevImg = () => {
-        console.log("previmg")
         this.setState({currImg: this.state.currImg-1})
-        console.log(this.state.currImg)
 
     }
 
     openPreview = (i,e) => {
         e.preventDefault();
         this.setState({visible: !this.state.visible, currImg: i})
-        console.log(this.state.currImg)
     }
 
     render() {

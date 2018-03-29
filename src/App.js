@@ -17,12 +17,18 @@ const myStorage = window.localStorage;
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
     //const x = myStorage.getItem("auth")
+    console.log("ATUHED"  + authed)
     return (
-        authed.get() ? <Route path="/main" component={Front}/> : <Redirect to={"/"}/>
+        authed.get() ?   "falssee" : <Route path="/main" component={Front}/>
     );
 }
 
 class App extends Component {
+
+    constructor(props) {
+        super(props);
+        store.socketStore.triggerMsg()
+    }
     render() {
         const auth = store.userStore.isAuthenticated;
         console.log("dei mum", store.userStore.isAuthenticated.get())

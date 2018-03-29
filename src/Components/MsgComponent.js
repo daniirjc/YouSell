@@ -32,13 +32,12 @@ class MsgComponent extends Component {
             msg: message,
             from: store.userStore.name.get(),
             to: this.props.user
-        });
-
-        this.setState({
-            msg: '',
-            show: false
-        });
-        this.showNotification();
+        })
+            this.setState({
+                msg: '',
+                show: false
+            });
+            this.showNotification();
     }
 
     showNotification = () => {
@@ -55,7 +54,7 @@ class MsgComponent extends Component {
             <div>
                 <button style={{ border: "none", borderRadius: 0 }} className="btn btn-success" onClick={this.showOver}>Kontakt aufnehmen</button>
                 <div style={{ textAlign: "right" }}>
-                    <input style={{ marginTop: 15, borderRadius: 0, width: "100%" }} type="text" hidden={this.state.show} placeholder="Schreibe eine Nachricht an den Verkäufer ..." onChange={(event) => this.handleMessage(event)} />
+                    <input style={{ marginTop: 15, borderRadius: 0, width: "100%" }} type="text" hidden={this.state.show} placeholder="Schreibe eine Nachricht an den Verkäufer ..." value={this.state.msg} onChange={(event) => this.handleMessage(event)} />
                     <button hidden={this.state.show} style={{ border: "none", borderRadius: 0, marginTop: 5, backgroundColor: "rgba(95,183,96,1", color: "white", }}
                         onClick={this.sendMsg}>Senden</button>
                 </div>

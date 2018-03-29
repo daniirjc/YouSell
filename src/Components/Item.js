@@ -76,11 +76,7 @@ class Item extends Component {
     }
 
     openModal = (id) => {
-        console.log('Inside openModal()', id)
         this.setState({modalisOpen: true, activeItemId: id, currItem: store.itemStore.items.find(x => x._id === id)})
-        console.log(this.state.currItem.art_name)
-
-        console.log(this.state.activeItemId)
     }
 
     closeModal = () => {
@@ -88,13 +84,17 @@ class Item extends Component {
     }
 
     componentWillMount() {
+        console.log("Calculting pages");
+        this.calculatePages()
+    }
+
+    calculatePages = () => {
         store.itemStore.reqItem().then(() =>{
             let page = store.itemStore.items.count / this.state.itemsPerPage;
-            console.log("xxx",page)
 
-            if(store.itemStore.items.length < this.state.itemsPerPage){
+            /*if(store.itemStore.items.length < this.state.itemsPerPage){
                 this.setState({itemsPerPage: store.itemStore.items.length})
-            }
+            }*/
 
             this.setState({
                 items: store.itemStore.items,
@@ -105,21 +105,23 @@ class Item extends Component {
     }
 
     changePageCount = (newAmount) => {
+        console.log("in change pagecount")
         if (this.state.pageCount !== newAmount) {
             let curPage = this.state.currentPage > newAmount ? 1 : this.state.currentPage
             this.setState({
                 pageCount: newAmount,
                 currentPage: curPage
             })
+            console.log("newAmount + curPage" + newAmount + curPage)
         }
     }
 
     changeCurrentPage = (num) => {
-        console.log("ass" + num)
-
+        console.log("change current Page")
         this.setState({
             currentPage: num
         });
+        console.log("num" + num)
     }
 
     render() {
@@ -138,18 +140,20 @@ class Item extends Component {
                         <div style={{flex: 2}}>
                             <h3 style={{textAlign: "center", color: "rgba(95,183,96,1"}}>{this.state.currItem.art_name}</h3>
                             <p>{this.state.currItem.art_desc}</p>
-                            <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price} <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
+                            <div style={{fontSize: 10}}>Preis: <span style={{fontSize: 20, color: "rgba(95,183,96,1"}}>€ {this.state.currItem.art_price}
+                            <RatingComponent creator={this.state.currItem.art_creator}/></span> </div>
                             <MsgComponent show={this.state.show} user={this.state.currItem.art_creator} />
                         </div>
                         <button className="close" onClick={this.closeModal}/>
                     </Modal>
                 <div className="row" style={styles.productview}>
                     {
-                        store.itemStore.spliceObservable(this.state.itemsPerPage * (this.state.currentPage-1), this.state.itemsPerPage * this.state.currentPage).map(function (menuItem) {
+                        store.itemStore.spliceObservable(this.state.itemsPerPage * (this.state.currentPage-1),
+                            this.state.itemsPerPage * this.state.currentPage).map(function (menuItem) {
+
                             const desc = `${menuItem.art_desc.substring(0,50)}...`
                             return (
                                 <div onClick={() => {
-                                    console.log('Right before openModal()', menuItem._id)
                                     this.openModal(menuItem._id)
                                 }} className="col-xs-6 col-sm-6 col-md-3" style={styles.space}>
                                     <div className="thumbnail" style={styles.thumb}>

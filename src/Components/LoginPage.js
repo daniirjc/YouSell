@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { observer } from 'mobx-react'
 import LoginForm from './LoginForm';
-import Background from '../guybg.png';
+import Background from '../Assets/guybg.png';
 
 
 const bg = {
@@ -20,7 +20,7 @@ const bg = {
 };
 
 
-class LoginPage extends React.Component {
+class LoginPage extends Component {
 
     render () {
         return (

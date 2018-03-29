@@ -1,12 +1,12 @@
-import React from 'react';
-import './cstm.css'
+import React, {Component} from 'react';
+import '../Styles/cstm.css'
 import DropDownComponent from "./DropDownComponent";
 import CreateProductComponent from "./CreateProductComponent";
 import Modal from 'react-modal';
 import ENV from "../api/env";
 import * as axios from "axios";
 import store from '../stores'
-import Background from '../Logo1.png'
+import Background from '../Assets/Logo1.png'
 
 
 
@@ -83,7 +83,7 @@ const styles = {
 };
 
 
-class NavbarComponent extends React.Component {
+class NavbarComponent extends Component {
 
     constructor(props){
         super(props)
@@ -101,22 +101,19 @@ class NavbarComponent extends React.Component {
 
     closeModal = () => {
         this.setState({modalisOpen: false})
+        this.props.forcerender();
     }
 
     handleSearchInput = (event) => {
         this.setState({search: event.target.value})
-        console.log(this.state.search)
     }
     handleCatInput = (event) => {
         this.setState({cat: event.target.value})
-        console.log(this.state.cat)
     }
 
     onSearch = () => {
-        const url = ENV.host + ':' + ENV.port + '/search';
-        //const url = ENV.host + '/search';
+        const url = ENV.host + '/search';
 
-        console.log(cat);
         let cat = this.state.cat === 'Kategorien' ? null : this.state.cat
 
 
@@ -135,7 +132,6 @@ class NavbarComponent extends React.Component {
             } else {
                 store.itemStore.gg(res.data.items)
 
-                console.log("Finally: ", res);
             }
         })
 
@@ -161,7 +157,7 @@ class NavbarComponent extends React.Component {
                        contentLabel="GG"
                        ariaHideApp={false}
                 >
-                    <CreateProductComponent/>
+                    <CreateProductComponent close={this.closeModal}/>
                     <button className="close" onClick={this.closeModal}/>
                 </Modal>
                 <nav >

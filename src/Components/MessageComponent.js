@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import 'react-chat-elements/dist/main.css';
 import { MessageBox } from 'react-chat-elements';
-import "./message.css"
+import "../Styles/message.css"
 import * as axios from 'axios';
 import store from '../stores';
 import ENV from '../api/env';
-import Background from '../account_pic.png';
+import Background from '../Assets/account_pic.png';
 import MsgHistoryComponent from './MessageHistoryComponent';
 
 class MessageComponent extends Component {
@@ -16,12 +16,13 @@ class MessageComponent extends Component {
             messages: [],
             converastions: [],
             activeChat: '',
-            selectedPartner: ''
+            selectedPartner: '',
+            message: ''
         };
     }
 
     componentWillMount() {
-        const url = ENV.host + ':' + ENV.port + '/chat/all';
+        const url = ENV.host + '/chat/all'
         this.fetchMsgData(url);
     }
 
@@ -44,13 +45,16 @@ class MessageComponent extends Component {
     }
 
     sendMessage = () => {
-        let message = document.getElementById('comment').value;
-
         store.socketStore.sendMessage({
-            msg: message,
+            msg: this.state.message,
             from: store.userStore.name.get(),
             to: this.state.selectedPartner
         });
+        this.setState({message: ""});
+    }
+
+    handleInput = (event) => {
+        this.setState({message: event.target.value})
     }
 
     render() {
@@ -74,7 +78,6 @@ class MessageComponent extends Component {
                                                         <span className="name-meta">{item.partner}</span>
                                                     </div>
                                                     <div className="col-sm-4 col-xs-4 pull-right sideBar-time">
-                                                        {console.log(item.Date.year)}
                                                         <span className="time-meta pull-right">{item.Date.day}.{item.Date.month}.{item.Date.year[2]}{item.Date.year[3]}</span>
                                                         <span className="time-meta pull-right">{item.Date.hours}:{item.Date.minutes}</span>
                                                     </div>
@@ -97,7 +100,7 @@ class MessageComponent extends Component {
                             <i className="far fa-smile"></i>
                         </div>
                         <div className="col-sm-9 col-xs-9 reply-main">
-                            <textarea className="form-control" rows="1" id="comment"></textarea>
+                            <textarea className="form-control" rows="1" id="comment" onChange={this.handleInput} value={this.state.message}/>
                         </div>
                         <div className="col-sm-1 col-xs-1 reply-send">
                             <i className="glyphicon glyphicon-send" onClick={this.sendMessage} />

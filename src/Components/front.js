@@ -12,14 +12,17 @@ const styles = {
 
 
 class Front extends React.Component {
+    forecRender = () => {
+        console.log("Forcing rerender!");
+        this.forceUpdate()
+    }
+
     render () {
-        console.log(this.props)
         return(
             <div>
                 <div style={styles.bg}>
                     <div>
-                        <NavbarComponent/>
-
+                        <NavbarComponent forcerender={this.forecRender} />
                     </div>
                     <Item history={this.props.history} />
                 </div>

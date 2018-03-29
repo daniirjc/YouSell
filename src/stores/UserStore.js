@@ -4,7 +4,6 @@ import ENV from "../api/env";
 import * as axios from "axios";
 
 
-const myStorage = window.localStorage;
 
 
 class UserStore {
@@ -24,24 +23,17 @@ class UserStore {
         this.loginLoading.set(true);
         fetchToken().then((res) => res.json()).then((data => {
             if (data) {
-                console.log('Data received');
                 this.token = data._csrf;
-                console.log(this.token);
-                console.log(data)
                 this.error.set(false);
                 this.errorText = observable('');
                 postLoginDetails(username, password, this.token).then((res) => {
                     if (res.data.success) {
                         this.isAuthenticated.set(true)
-                        //myStorage.setItem('auth', this.isAuthenticated.get())
-                        console.log(this.isAuthenticated.get())
-                        console.log('Logged in')
                         cb();
                     } else {
                         this.error.set(true);
                         this.errorText = observable('Fehler aufgetreten');
                         this.name = observable('');
-                        console.log('Error')
                     }
                     this.loginLoading.set(false);
                 })
@@ -53,8 +45,8 @@ class UserStore {
     })
 
     deleteItem = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/main/remove';
-        // let url = ENV.host + '/search/user'
+        let url = ENV.host + '/main/remove'
+        console.log("die id: " + id)
 
         return axios({
             method: 'post',
@@ -69,8 +61,7 @@ class UserStore {
     });
 
     getUserItems = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/search/user';
-        // let url = ENV.host + '/search/user'
+        let url = ENV.host + '/search/user'
         return axios({
             method: 'post',
             url: url,
@@ -79,15 +70,12 @@ class UserStore {
             },
             responseType: 'json'
         }).then(finalResult => {
-            console.log("Looks good")
-            console.log(finalResult)
             this.userItems.replace(finalResult.data.items);
         }).catch(e => console.log("error", e));
     })
 
     sendRating = action((id) => {
-        let url = ENV.host + ':' + ENV.port + '/rate';
-        // let url = ENV.host + '/rate'
+        let url = ENV.host + '/rate'
 
         return axios({
             method: 'post',
@@ -101,13 +89,10 @@ class UserStore {
             this.sumrating.set(finalResult.data.avgRating)
         }).catch(e => console.log(e))
 
-
     })
 
     getRating = action((id) => {
-        //let url = ENV.host + ':' + ENV.port + '/rate';
-        // let url = ENV.host + '/rate'
-        let url = ENV.host + ':' + ENV.port + '/rate/' + this.name;
+        let url = ENV.host + '/rate/' + this.name;
 
         return axios({
             // method: 'post',

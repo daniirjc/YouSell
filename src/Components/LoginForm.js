@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { observer } from 'mobx-react'
 import store from '../stores';
 import { ClipLoader } from 'react-spinners';
-import Background from '../Logo1.png'
+import Background from '../Assets/Logo1.png'
 
 
 const bg = {
@@ -25,7 +25,7 @@ const head = {
     marginBottom: 30,
 };
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
 
     constructor() {
         super();

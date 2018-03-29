@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import store from '../stores';
-import Background from '../account_pic.png'
+import Background from '../Assets/account_pic.png'
 
 class MessageHistoryComponent extends Component {
     constructor(props) {
@@ -62,9 +62,6 @@ class MessageHistoryComponent extends Component {
             <div className="col-sm-8 col-xs-7 heading-name">
                 <h2 className="heading-name-meta" style={{ marginLeft: 25, marginTop: 5 }}>{partner}</h2>
             </div>
-            <div className="col-sm-1 col-xs-1  heading-dot pull-right">
-                <i className="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-            </div>
         </div>);
     }
 
@@ -80,7 +77,7 @@ class MessageHistoryComponent extends Component {
                     typeof this.props.history !== 'undefined'
                         ? this.props.history.map(item => {
                             return (
-                                < div className="row message-body" >
+                                <div className="row message-body" >
                                     {
                                         item.receiver !== this.state.user
                                             ? this.htmlSender(item)

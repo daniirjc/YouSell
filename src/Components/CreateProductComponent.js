@@ -40,7 +40,7 @@ class CreateProductComponent extends Component {
 
         this.state = {
             images: [],
-            cat: '',
+            cat: 'Sonstiges',
             name: '',
             desc: '',
             price: '',
@@ -62,17 +62,13 @@ class CreateProductComponent extends Component {
 
     handleName = (event) => {
         this.setState({ name: event.target.value })
-        console.log(this.state.name)
-
     }
     handleDesc = (event) => {
         this.setState({ desc: event.target.value })
-        console.log(this.state.desc)
 
     }
     handlePrice = (event) => {
         this.setState({ price: event.target.value })
-        console.log(this.state.price)
 
     }
     handleCat = (event) => {
@@ -80,8 +76,7 @@ class CreateProductComponent extends Component {
     }
 
     onCreate = () => {
-        const url = ENV.host + ':' + ENV.port + '/main/add';
-        // const url = ENV.host + '/main/add';
+        const url = ENV.host + '/main/add';
 
         let data = new FormData()
         this.state.images.forEach(item => {
@@ -95,13 +90,21 @@ class CreateProductComponent extends Component {
         data.append('price', this.state.price);
 
         return axios.post(url, data).then(res => {
-            console.log(res)
+            this.props.close()
+            this.setState({
+                product: "",
+                desc: "",
+                category: "",
+                price: "",
+                images: []
+            })
+            store.itemStore.reqItem();
         }).catch(e => console.log(e))
+
     }
 
 
     render() {
-        console.log(this.state.images)
         return (
             <div style={{ width: "100%" }}>
                 <Dropzone style={styles.uploader} accept="image/jpeg, image/png" onDrop={(accepted) => { this.attachToArray(accepted) }}>
@@ -124,7 +127,14 @@ class CreateProductComponent extends Component {
                         </select>
                         <input style={{ marginBottom: 10, borderRadius: 0 }} type="number" className="form-control" placeholder="Verkaufspreis" value={this.state.price} onChange={this.handlePrice} required={true} />
                     </div>
-                    <button onClick={this.onCreate} type="button" className="btn btn-success btn-block" style={{ borderRadius: 0, height: 30 }}>Produkt erstellen</button>
+                    <div>
+                        {
+                            this.state.images.length === 0
+                            ? <button disabled={true} type="button" className="btn btn-success btn-block" style={{ borderRadius: 0, height: 30 }}>Produkt erstellen</button>
+                            : <button onClick={this.onCreate} type="button" className="btn btn-success btn-block" style={{ borderRadius: 0, height: 30 }}>Produkt erstellen</button>
+                        }
+                    </div>
+
                 </form>
             </div>
         );

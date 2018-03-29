@@ -1,7 +1,7 @@
 import ReactStars from 'react-stars'
 import React, {Component} from 'react'
-import "./cstm.css"
-import Background from '../account_pic.png';
+import "../Styles/cstm.css"
+import Background from '../Assets/account_pic.png';
 import store from '../stores';
 
 
@@ -22,8 +22,7 @@ class RatingComponent extends Component {
     };
 
     render () {
-        console.log(this.state.rating)
-        console.log(this.state.edit)
+
         return (
             <div style={{display: "flex", flexDirection: "row", justifyContent:"flex-end"}}>
                 <img src={Background} style={{border: "solid", borderWidth: 1, height: 30, width: 30}} className="img-circle"/>

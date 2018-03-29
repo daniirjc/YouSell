@@ -1,14 +1,11 @@
 import React, {Component} from 'react'
 import {DropdownButton, MenuItem} from "react-bootstrap";
-import "./cstm.css"
+import "../Styles/cstm.css"
 import Modal from 'react-modal';
-import store from '../stores';
-import axios from 'axios';
-import ENV from "../api/env";
-import Background from '../account_pic.png';
 import MessageComponent from "./MessageComponent";
-import cookie from 'react-cookies'
 import ProfileComponent from "./ProfileComponent";
+import store from '../stores';
+
 
 
 
@@ -40,7 +37,6 @@ class DropDownComponent extends Component {
 
     changeContent = (event) => {
         this.setState({content: event})
-        console.log(this.state.content)
     }
 
     logout = () => {

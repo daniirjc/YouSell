@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import { observer } from 'mobx-react'
-import Background from '../account_pic.png';
+import Background from '../Assets/account_pic.png';
 import store from '../stores';
-import './products.css'
+import '../Styles/products.css'
 import ReactStars from 'react-stars'
 
 
@@ -52,12 +52,11 @@ class ProfileComponent extends Component {
 
 
     render() {
-        console.log("Useritems",store.userStore.userItems)
         return (
             <div>
                 <div style={{display:"flex", flexDirection: "row"}}>
                     <img src={Background} style={{border: "solid", borderWidth: 1, alignItems: "flex-start"}} className="img-circle"/>
-                    <div>
+                    <div style={{paddingLeft: 10}}>
                         <h3 style={{
                             color: "rgba(95,183,96,1"
                         }}>{store.userStore.name.get()}</h3>
@@ -84,6 +83,7 @@ class ProfileComponent extends Component {
                                             <p>{desc}</p>
                                             <h5>Preis: € {menuItem.art_price}</h5>
                                         </div>
+                                    {console.log(menuItem)}
                                     <button className="close" onClick={() => this.deleteItem(menuItem._id)}/>
                                 </div>
                             </div>)

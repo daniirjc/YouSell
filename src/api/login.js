@@ -11,8 +11,7 @@ axiosDefault.xsrfHeaderName = "X-CSRFToken";
 
 
 export function postLoginDetails(username, password, token) {
-    const url = ENV.host + ':' + ENV.port + '/login';
-    // const url = ENV.host + "/login";
+    const url = ENV.host + "/login";
 
     return axios({
         method: 'post',
@@ -30,29 +29,6 @@ export function postLoginDetails(username, password, token) {
 }
 
 export function fetchToken() {
-    const url = ENV.host + ':' + ENV.port + '/login';
-    // const url = ENV.host + '/login';
-    console.log("im fetching")
-    console.log(url)
+    const url = ENV.host + '/login';
     return fetch(url)
 }
-
-/*
-let formData = new FormData();
-    formData.append('username', username);
-    formData.append('password', password);
-    console.log("hi")
-    console.log(username);
-    console.log(password);
-    console.log(formData.get("username"));
-    return fetch(url, {
-        method: 'POST',
-        withCredentials: true,
-        responseType: 'json',
-        header: {
-            'X-CSRFToken': token
-        },
-        body: formData
-    }).then(res => res.json()).then((data) => { cb(); console.log(data); return data; })
-        .catch(e => console.log(e))
- */
