@@ -9,7 +9,6 @@ class SocketStore {
         this.socket.on("msg", () => {
             this.newMessages.set(true);
         })
-        console.log("in hereee")
     }
 
     ackUser = (user) => {

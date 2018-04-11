@@ -25,7 +25,7 @@ class LoginPage extends Component {
     render () {
         return (
             <div className="container-fluid" style={bg}>
-                <div className="row" style={{display: "flex", justifyContent: "center"}}>
+                <div className="row" style={{display: "flex", justifyContent: "center", width: "100%"}}>
                     <div className="col-xs-9  col-sm-6  col-md-4 col-lg-4 ">
                         <LoginForm onLoginSuccess={() => this.props.history.push('/main')}/>
                     </div>

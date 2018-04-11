@@ -24,6 +24,7 @@ class UserStore {
         fetchToken().then((res) => res.json()).then((data => {
             if (data) {
                 this.token = data._csrf;
+                console.log(this.token)
                 this.error.set(false);
                 this.errorText = observable('');
                 postLoginDetails(username, password, this.token).then((res) => {
@@ -39,6 +40,7 @@ class UserStore {
                 })
             }
         })).catch(() => {
+            console.log("ovdje")
             this.errorText = 'Fehler';
             this.error.set(true);
         })
@@ -46,7 +48,6 @@ class UserStore {
 
     deleteItem = action((id) => {
         let url = ENV.host + '/main/remove'
-        console.log("die id: " + id)
 
         return axios({
             method: 'post',

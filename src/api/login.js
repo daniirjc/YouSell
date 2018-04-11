@@ -25,7 +25,7 @@ export function postLoginDetails(username, password, token) {
             password: password,
         },
         responseType: 'json'
-    })
+    }).catch(e => console.log(e))
 }
 
 export function fetchToken() {

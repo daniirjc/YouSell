@@ -13,7 +13,6 @@ const styles = {
 
 class Front extends React.Component {
     forecRender = () => {
-        console.log("Forcing rerender!");
         this.forceUpdate()
     }
 

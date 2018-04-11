@@ -84,7 +84,6 @@ class Item extends Component {
     }
 
     componentWillMount() {
-        console.log("Calculting pages");
         this.calculatePages()
     }
 
@@ -105,23 +104,19 @@ class Item extends Component {
     }
 
     changePageCount = (newAmount) => {
-        console.log("in change pagecount")
         if (this.state.pageCount !== newAmount) {
             let curPage = this.state.currentPage > newAmount ? 1 : this.state.currentPage
             this.setState({
                 pageCount: newAmount,
                 currentPage: curPage
             })
-            console.log("newAmount + curPage" + newAmount + curPage)
         }
     }
 
     changeCurrentPage = (num) => {
-        console.log("change current Page")
         this.setState({
             currentPage: num
         });
-        console.log("num" + num)
     }
 
     render() {

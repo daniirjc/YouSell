@@ -4529,15 +4529,15 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-mobx-react@^4.3.5:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.4.2.tgz#22d710974883de1763cdafce3025570a79c64336"
+mobx-react@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-4.4.3.tgz#baa9ec41165ee35ae7b9df19bca10190f36f117e"
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
-mobx@^3.4.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.5.1.tgz#8e682ec535cf44e04005b9e37e2df66acc975a42"
+mobx@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.6.2.tgz#fb9f5ff5090539a1ad54e75dc4c098b602693320"
 
 moment@^2.18.1:
   version "2.20.1"
@@ -4694,6 +4694,10 @@ normalize-url@^1.4.0:
     prepend-http "^1.0.0"
     query-string "^4.1.0"
     sort-keys "^1.0.0"
+
+normalize.css@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.0.tgz#14ac5e461612538a4ce9be90a7da23f86e718493"
 
 npm-run-path@^2.0.0:
   version "2.0.2"
@@ -5633,9 +5637,9 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-dropzone@^4.2.7:
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.8.tgz#27ce163544d92c75734b0e1e54c471979587e737"
+react-dropzone@^4.2.9:
+  version "4.2.9"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.9.tgz#98156ce4d4cb018f7c5099eeb2eaff6dc21836fd"
   dependencies:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
@@ -5837,9 +5841,9 @@ react-transition-group@^2.0.0, react-transition-group@^2.2.0:
     prop-types "^15.5.8"
     warning "^3.0.0"
 
-react-viewer@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-viewer/-/react-viewer-2.3.1.tgz#6785e08dba4c5e3cbed2831c9a534de87b0b5c5c"
+react-viewer@^2.3.5:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/react-viewer/-/react-viewer-2.3.6.tgz#64b9a2f8d79cc69325047c17f2b013ca34625ec4"
   dependencies:
     classnames "^2.2.5"
 

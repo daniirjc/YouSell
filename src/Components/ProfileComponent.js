@@ -83,7 +83,6 @@ class ProfileComponent extends Component {
                                             <p>{desc}</p>
                                             <h5>Preis: € {menuItem.art_price}</h5>
                                         </div>
-                                    {console.log(menuItem)}
                                     <button className="close" onClick={() => this.deleteItem(menuItem._id)}/>
                                 </div>
                             </div>)

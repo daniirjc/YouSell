@@ -23,8 +23,6 @@ class PaginationComponent extends Component {
     render() {
         let items = [];
         let amount = Math.ceil(store.itemStore.items.length / this.props.itemsAmount);
-        console.log("itemsAmount" + this.props.itemsAmount)
-        console.log("amount" + amount)
         this.props.changePageCount(amount);
 
         for (let number = 1; number <= amount; number++) {
