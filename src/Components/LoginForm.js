@@ -53,7 +53,7 @@ class LoginForm extends Component {
 
     render () {
         return (
-            store.userStore.loginLoading.get() ? <ClipLoader loading={true} color="#26A65B" size={50} /> :
+            store.userStore.loginLoading.get() ? <div style={{textAlign: 'center'}}><ClipLoader loading={true} color="#26A65B" size={50}/></div> :
                 (
                     <form id="loginform" className="form-horizontal" method="post" onSubmit={this.onLogin} style={{textAlign: 'center'}}>
                         <input name="_csrf" value={this.state.token} type="hidden" readOnly={true} />

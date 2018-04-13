@@ -137,15 +137,6 @@ class NavbarComponent extends Component {
 
     }
 
-    toggleNav = () => {
-        let doc = document.querySelector('.narrowLinks')
-        if (doc.style.display === 'flex') {
-            doc.style.flexDirection = 'none';
-        } else {
-            doc.style.flexDirection = 'none';
-        }
-    }
-
     render() {
         return (
 
@@ -191,15 +182,6 @@ class NavbarComponent extends Component {
                             <div style={{marginTop: 14, marginRight: 70}}>
                                 <DropDownComponent/>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="navNarrow">
-                        <i className="fas fa-bars" onClick={this.toggleNav}/>
-                        <div className="narrowLinks">
-                            <a href="#" onClick={this.toggleNav}>Link 1</a>
-                            <a href="#" onClick={this.toggleNav}>Link 2</a>
-                            <a href="#" onClick={this.toggleNav}>Link 3</a>
                         </div>
                     </div>
                 </nav>

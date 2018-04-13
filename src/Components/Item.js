@@ -164,7 +164,7 @@ class Item extends Component {
                         }, this)
                     }
                 </div>
-                {store.itemStore.items.length === 0 ? <ClipLoader color="#26A65B" size={50}/> : <PaginationComponent itemsAmount={this.state.itemsPerPage} changePage={this.changeCurrentPage} changePageCount={this.changePageCount}/>}
+                {store.itemStore.items.length === 0 ? <div style={{textAlign: 'center'}}><ClipLoader loading={true} color="#26A65B" size={50}/></div> : <PaginationComponent itemsAmount={this.state.itemsPerPage} changePage={this.changeCurrentPage} changePageCount={this.changePageCount}/>}
             </div>
         );
     }
